@@ -2,9 +2,9 @@
 
 int main(int argc, char const *argv[])
 {
-    char string[100];
-    int i = 11, i2 = 1;
-    FILE* file = fopen( "./ejer1.txt", "wb" );
+    int i = 15, i2 = 1;
+    FILE* file = fopen( "./ejer4.dat", "wb" );
     fwrite( &i, sizeof(int), 1, file );
+    fwrite( &i2, sizeof(int), 1, file );
     return 0;
 }

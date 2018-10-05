@@ -10,11 +10,11 @@ int main(int argc, char const *argv[])
     fprintf( stdout, "Ingrese el tercer mensaje:" );
     scanf( "%s", string3 );
     FILE* file = fopen( "./ejer2.txt", "w" );
-    fwrite( string, 5, sizeof(char), file );
+    fwrite( string, sizeof(char), 5, file );
     fputc( '\n', file );
-    fwrite( string2, 5, sizeof(char), file );
+    fwrite( string2, sizeof(char), 5, file );
     fputc( '\n', file );
-    fwrite( string3, 5, sizeof(char), file );
+    fwrite( string3, sizeof(char), 5, file );
     fputc( '\n', file );
     return 0;
 }
