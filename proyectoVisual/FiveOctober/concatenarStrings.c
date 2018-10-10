@@ -2,6 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 
+void imprimirHolaMundo( /*tipo de dato como parametro*/ );
+
+void imprimirASCIIhasta( char );
+
+void imprimirHolaMundo(){
+    fprintf( stdout, "Hola Mundo \n" );
+}
+
 int main(int argc, char const *argv[])
 {
     char cad1[] = "Hola";
@@ -17,5 +25,18 @@ int main(int argc, char const *argv[])
     cadRes = strcat( cadRes, cad3 );
     fprintf ( stdout, "%s\n", cadRes );
     free( cadRes );
+
+    imprimirHolaMundo();
+
+    imprimirASCIIhasta( 127 );
     return 0;
+}
+
+void imprimirASCIIhasta( char h ){
+    
+    for(int i = 1; i <= h; i++)
+    {
+        fprintf( stdout, "%d - %c\n", i, i );
+    }
+    
 }
