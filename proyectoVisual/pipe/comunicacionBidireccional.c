@@ -22,18 +22,19 @@ int main(int argc, char const *argv[])
         read( tubPH[0], &recibido/*para que escriba ahi dentro*se le pasa la direccion de memoria**/, sizeof(int) );
         printf( "Lectura de padre a hijo: %d\n", recibido );
         int enviar = 7;
-        write( tubHP[1], &enviar, sizeof(int) );//escribo en tubHP :D
+        write( tubHP[1], &enviar, sizeof(int) );//escribo en tubHP :D//se le envia un puntero y el sizeof para saber cuanto debe de leer a partir de esa direccion de memoria :D
     }
     else if ( pidH == -1 ) fprintf( stderr, "error fork hijo" );
     else{///padre
         close ( tubPH[0] );//ya que yo voy a escribir de tubPH :D
         close( tubHP[1] );//Ya que solo voy a leer de tubHP :D
         int enviar = 15;
-        write( tubPH[1], &enviar, sizeof(int) );
+        write( tubPH[1], &enviar, sizeof(int) );//se le envia un puntero y el sizeof para saber cuanto debe de leer a partir de esa direccion de memoria :D
         int recibido;
         read( tubHP[0], &recibido /*& ya que le envio la direccion de memoria para que el ESCRIBAAAA*/, sizeof(int) );
         printf( "Lectura de hijo a padre: %d\n", recibido );
         wait(NULL);//Espera a que un hijo termine :D
     }
+    //Lo ejecutan ambos
     return 0;
 }

@@ -9,6 +9,6 @@ int main(int argc, char const *argv[])
     FILE* fileW = fopen( "./ejer5.txt", "w" );
     int suma = i + i1;
     printf( "%d", suma );
-    fwrite( &suma, sizeof(char), 1, fileW );
+    fwrite( &suma, sizeof(int), 1, fileW );
     return 0;
 }
