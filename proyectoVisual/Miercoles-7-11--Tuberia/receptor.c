@@ -9,6 +9,7 @@
 #include <errno.h>
 
 pid_t pidEmisor;
+FILE* fEscritura;
 
 void sigIntHandle( int );
 
@@ -17,6 +18,7 @@ int main(int argc, char const *argv[])
     //sigint handle
     signal( SIGINT, sigIntHandle );
     //
+    int readTub;
     char leido[100];
     int desLectura;
     desLectura = open( "./tuberia", O_RDONLY );
@@ -24,19 +26,21 @@ int main(int argc, char const *argv[])
         fprintf( stderr, "File : "__FILE__" Error al abrir tuberia : %s : Line %d\n", strerror( errno ), __LINE__ );
         return -1;
     }
-    FILE* fEscritura = fopen( "./receptorCadenas.txt", "w" );
+    fEscritura = fopen( "./receptorCadenas.txt", "w" );
     if ( fEscritura == NULL ){
         fprintf( stderr, "File : "__FILE__" Error al abrir receptorCadenas.txt : %s : Line %d\n", strerror( errno ), __LINE__ );
         return -1;
     }
-    read( desLectura, &pidEmisor, sizeof( pid_t ) );
-    while(1){
-        read( desLectura, leido, 100 * sizeof( char ) );
+    readTub = read( desLectura, &pidEmisor, sizeof( pid_t ) );
+    while( readTub != -1 ){
+        readTub = read( desLectura, leido, 100 * sizeof( char ) );
         fputs( leido, fEscritura );
+        fputc( '\n', fEscritura );//jump
         printf("Leido: %s\n", leido );
     }
     fclose( fEscritura );
     close( desLectura );
+    printf( "Emisor cerrado y receptor terminado!!\n" );
     return 0;
 }
 
@@ -46,5 +50,7 @@ void sigIntHandle( int signall ){
     sleep( 2 );
     kill( pidEmisor, SIGINT );
     printf( "Presoina CTRL + C para salir\n" );
+    fclose( fEscritura );
+    printf( "Fichero cerrado!!\n" );
     signal( SIGINT, SIG_DFL );
 }
