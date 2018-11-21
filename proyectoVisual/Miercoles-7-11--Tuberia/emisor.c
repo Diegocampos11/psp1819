@@ -7,8 +7,10 @@
 #include <stdio.h>
 #include <signal.h>
 #include <errno.h>
+#include <stdbool.h>
 
 void sigUsrHandle( int );
+bool salirPrograma = false;
 
 int main(int argc, char const *argv[])
 {   //sigUsr handle
@@ -37,4 +39,5 @@ int main(int argc, char const *argv[])
 
 void sigUsrHandle( int signall ){
     printf( "Recibido una señal USR del receptor\n" );
+    salirPrograma = true;
 }
