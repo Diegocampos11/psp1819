@@ -33,8 +33,9 @@ int main(int argc, char const *argv[]){
     int tub[2];//recuperar resultado
     pipe( tub );//Iniciar pipe
     pid_t pid = fork();
-    if ( pid == -1 ) fprintf( stderr, "error fork hijo" );
+    if ( pid == -1 ) fprintf( stderr, "Error: no se pudo ejecutar el fork : %s\n", strerror( errno ) );
     else if ( pid == 0 ){//Hijo!! :D
+        printf("Hijo creado con éxito!!\n");
         close ( tub[0] );//ya que yo voy a escribir en tub :D
         //Ejecutar operacion
         double resHijo;
@@ -52,31 +53,36 @@ int main(int argc, char const *argv[]){
                 resHijo = numEnviado / numDouble;
                 break;
             default:
-                fprintf( stderr, "Error: default xd\n");
+                fprintf( stderr, "Hijo: Error: default\n");
         }
+        printf("Hijo: Escribiendo resultado en tuberia sin nombre\n");
         write( tub[1], &resHijo, sizeof(double) );//se le envia un puntero y el sizeof para saber cuanto debe de ESCRIBIR a partir de esa direccion de memoria :D
         close( tub[1] );//cierro extremo escritura
-        //return 0;//mato hijo xd
+        printf("Hijo: Datos enviados con éxito. Tuberia sin nombre cerrada con éxito\n");
+        printf("Hijo: Chaoo!!\n");
+        //return 0;//mato hijo xd... ya que sale del if y ejecuta el return 0 abajo xd
     }
     else{//Padre!!! :D
         close( tub[1] );//Ya que solo voy a leer :D
         double resPadre;
+        printf("Padre: Esperando resultado del hijo...\n");
         read( tub[0], &resPadre, sizeof(double) );//se le envia un puntero y el sizeof para saber cuanto debe de LEER a partir de esa direccion de memoria :D
         close( tub[0] );//cierro extremo lectura
-        printf("Abriendo tuberia\n");
+        printf("Padre: Datos leidos con éxito. Tuberia sin nombre cerrada con éxito\n");
+        printf("Padre: Abriendo tuberia\n");
         int descriptorEscritura = open( argv[1], O_WRONLY );
         if ( descriptorEscritura == -1 ){
-            fprintf( stderr, "File : "__FILE__" Error al abrir tuberia : %s : Line %d\n", strerror( errno ), __LINE__ );
+            fprintf( stderr, "Padre: Error: no se pudo abrir tuberia : %s\n", strerror( errno ) );
             return -1;
         }
         write( descriptorEscritura, &resPadre, sizeof( resPadre ) );
         close( descriptorEscritura );//cierro tuberia
-        printf("Datos enviados con éxito. Tuberia cerrada con éxito\n");
-        printf("Escribriendo en log.txt...\n");
+        printf("Padre: Datos enviados con éxito. Tuberia cerrada con éxito\n");
+        printf("Padre: Escribriendo en log.txt...\n");
         //procedo a escribir en log.txt
         FILE* fEscritura = fopen( "./log.txt", "a+" );
         if ( fEscritura == NULL ){
-            fprintf( stderr, "File : "__FILE__" Error al abrir log.txt : %s : Line %d\n", strerror( errno ), __LINE__ );
+            fprintf( stderr, "Padre: Error: no se pudo abrir log.txt : %s\n", strerror( errno ) );
             return -1;
         }
         //fuente de tamaño double-.-->http://decsai.ugr.es/~jfv/ed1/c/cdrom/cap2/cap24.htm
@@ -88,12 +94,13 @@ int main(int argc, char const *argv[]){
         sprintf( resForLog, "%s %lf %c %lf = %lf\n", fechaHora, numEnviado, operacion[0], numDouble, resPadre );
         int errorEscritura = fputs( resForLog, fEscritura );
         if ( errorEscritura <= 0 ){
-            fprintf( stderr, "File : "__FILE__" Error al intentar escribir en log.txt: Line %d\n", __LINE__ );
+            fprintf( stderr, "Padre: Error: no se pudo escribir en log.txt\n" );
+            return -1;
         }
         fclose( fEscritura );//cierro fichero luego de escribir xd
-        printf("Escritura realizada con éxito!!\n");
+        printf("Padre: Escritura realizada con éxito!!\n");
         //terminando de escribir en log.txt :D!!!
-        printf("Fin del programa. Chaoo!!\n");
+        printf("Padre: Fin del programa. Chaoo!!\n");
     }
     return 0;
 }

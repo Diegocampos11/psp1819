@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
     printf("Abriendo tuberia\n");
     int descriptorEscritura = open( argv[1], O_WRONLY );
     if ( descriptorEscritura == -1 ){
-        fprintf( stderr, "File : "__FILE__" Error al abrir tuberia : %s : Line %d\n", strerror( errno ), __LINE__ );
+        fprintf( stderr, "Error: al abrir tuberia : %s\n", strerror( errno ) );
         return -1;
     }
     write( descriptorEscritura, &numDouble, sizeof( numDouble ) );
@@ -45,10 +45,11 @@ bool opValido(){
     int resRegex;
     printf("Ingresa el operador ('+', '-', '*' ó '/'):\n");
     fgets( operacion, TAM_MAX, stdin );
-    resRegex = regcomp(&regex, "^[+,*,/]\n$", REG_EXTENDED);//[\x2B,\x2D,*,/]\n$ escapa +=\x2B... "escapar '-'=\x2D" JAJAJA
+    resRegex = regcomp( &regex, "^[+,*,/]\n$", REG_EXTENDED );//[\x2B,\x2D,*,/]\n$ escapa +=\x2B... "escapar '-'=\x2D" JAJAJA
     if ( resRegex ) {
-        fprintf(stderr, "Error: no pudo compilar regex\n");
-        return false;
+        fprintf(stderr, "Error: no pudo compilar regex\n" );
+        //return false;
+        exit(EXIT_FAILURE);
     }
     
     /* Execute regular expression */
@@ -61,9 +62,9 @@ bool opValido(){
     }
     else {
         regerror(resRegex, &regex, operacion, sizeof(operacion) );//se utiliza la misma variable para mostrar el error
-        fprintf(stderr, "Error: regex coincidencia fallida: %s\n", operacion);
-        return false;
-        //exit(1);
+        fprintf(stderr, "Error: regex no pudo ejecutar el match correctamente : %s\n", operacion);//original text: Regex match failed:
+        //return false;
+        exit(EXIT_FAILURE);
     }
     
     /* Free memory allocated to the pattern buffer by regcomp() */
