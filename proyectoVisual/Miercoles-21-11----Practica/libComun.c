@@ -33,9 +33,13 @@ bool getNum( char AB ){
 }
 
 bool preguntar(){
-    fgets( respuesta, TAM_MAX, stdin );
+    char* posError = fgets( respuesta, TAM_MAX, stdin );
+    if ( posError == NULL ){//apunta a null
+        fprintf( stderr, "File : "__FILE__" : Line : %d : Error: no se pudo ejecutar fgets\n", __LINE__ );
+        return -1;
+    }
     if ( strcmp( respuesta, "S\n") != 0 && strcmp( respuesta, "\n") != 0 ){
-        fprintf(stderr, "Error: debes de escribir solamente 'S' y presionar ENTER si quieres ingresar otro número\nEn caso contrario solamente presiona ENTER para continuar\n");
+        fprintf(stderr, "File : "__FILE__" : Line : %d : Error: debes de escribir solamente 'S' y presionar ENTER si quieres ingresar otro número\nEn caso contrario solamente presiona ENTER para continuar\n", __LINE__);
         return true;
     }
     else return false;
@@ -45,10 +49,14 @@ bool numValidado( char AB ){
     regex_t regex;
     int resRegex;
     printf( "Ingresa el número %c:\nEjemplo: \"99.9999\",\"-99.9999\" ó \"99.9999\",\"-99.9999\"\n", AB);
-    fgets( numIngresado, TAM_MAX, stdin );
+    char* posError = fgets( numIngresado, TAM_MAX, stdin );
+    if ( posError == NULL ){//apunta a null
+        fprintf( stderr, "File : "__FILE__" : Line : %d : Error: no se pudo ejecutar fgets\n", __LINE__ );
+        return -1;
+    }
     resRegex = regcomp(&regex, "^(-)?([0-9]+)((,|.)([0-9]+))?\n$", REG_EXTENDED);
     if (resRegex) {
-        fprintf(stderr, "Error: no pudo compilar regex\n");
+        fprintf(stderr, "File : "__FILE__" : Line : %d : Error: no pudo compilar regex\n", __LINE__);
         return false;
         //exit(1);
     }
@@ -62,12 +70,12 @@ bool numValidado( char AB ){
         return true;
     }
     else if (resRegex == REG_NOMATCH) {
-        fprintf(stderr, "Error: cifra ingresada inválida (Formato decimal americano o español)\n" );
+        fprintf(stderr, "File : "__FILE__" : Line : %d : Error: cifra ingresada inválida (Formato decimal americano o español)\n", __LINE__ );
         return false;
     }
     else {
         regerror(resRegex, &regex, numIngresado, sizeof(numIngresado) );
-        fprintf(stderr, "Error: regex coincidencia fallida: %s\n", numIngresado);//se utiliza la misma variable para mostrar el error
+        fprintf(stderr, "File : "__FILE__" : Line : %d : Error: regex coincidencia fallida: %s\n", __LINE__, numIngresado);//se utiliza la misma variable para mostrar el error
         return false;
         //exit(1);
     }
