@@ -1,0 +1,9 @@
+package classes;
+
+public class Cliente {
+
+	public static void main(String[] args) {
+		Mensaje m = new Mensaje( 123, "Mensaje 123" );
+	}
+
+}

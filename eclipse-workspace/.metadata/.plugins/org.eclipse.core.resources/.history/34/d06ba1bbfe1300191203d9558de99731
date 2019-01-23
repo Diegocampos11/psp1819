@@ -1,0 +1,16 @@
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class Programa {
+	public static void main( String[] args ) {
+		try {
+			InetAddress direccion = InetAddress.getLocalHost();
+			InetAddress profesor = InetAddress.getByName("MV-Mint-Profesor");
+			System.out.println(direccion);
+			System.out.println(profesor);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

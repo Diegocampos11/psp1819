@@ -1,0 +1,9 @@
+
+public class hiloRunnable implements Runnable{
+
+	@Override
+	public void run() {
+		System.out.println("Runnable");
+	}
+	
+}

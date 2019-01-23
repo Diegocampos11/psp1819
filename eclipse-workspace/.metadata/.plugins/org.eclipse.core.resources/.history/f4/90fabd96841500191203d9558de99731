@@ -1,0 +1,26 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.GregorianCalendar;
+
+public class ServidorHora {
+	public final static int PUERTO = 4321;
+	
+	private String obtenerHora() {
+		String hora = new GregorianCalendar().getTime().toString();
+		return hora;
+	}
+
+	public static void main(String[] args) {
+		try {
+			ServerSocket servSock = new ServerSocket( PUERTO );
+			Socket socket = servSock.accept();//aceptamos la conexion, devuelve los nuevos puertos
+			System.out.println(hora);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

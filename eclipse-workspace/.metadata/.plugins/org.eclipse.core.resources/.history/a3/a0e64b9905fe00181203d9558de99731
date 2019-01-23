@@ -1,0 +1,27 @@
+package example;
+
+import java.util.ArrayList;
+
+public class Recursos {
+	private ArrayList<Object> listaRecursos;
+	
+	public synchronized Object obtenerRecurso(){
+		if ( listaRecursos.isEmpty() )
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("Error: Proceso interrumpido mientras esperaba");
+			}//el wait puede salir con una interrupción
+		return listaRecursos.get(0);
+	}
+	
+	public Recursos() {
+		super();
+	}
+
+	public synchronized void anadirRecurso( Object o) {
+		listaRecursos.add( o );
+		/*listaRecursos.*/notify();
+	}
+}

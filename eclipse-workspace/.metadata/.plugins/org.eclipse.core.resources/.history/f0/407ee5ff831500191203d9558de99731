@@ -1,0 +1,18 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class ServidorHora {
+	public final static int PUERTO = 4321; 
+
+	public static void main(String[] args) {
+		try {
+			ServerSocket servSock = new ServerSocket( PUERTO );
+			Socket socket = servSock.accept();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

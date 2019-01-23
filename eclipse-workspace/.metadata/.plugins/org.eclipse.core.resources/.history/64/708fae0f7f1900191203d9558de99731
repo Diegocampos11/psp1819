@@ -1,0 +1,10 @@
+package classes;
+
+public class Cliente {
+
+	public static void main(String[] args) {
+		Socket socket = new Socket( "localhost", PUERTO );
+		Mensaje m = new Mensaje( 123, "Mensaje 123" );
+	}
+
+}

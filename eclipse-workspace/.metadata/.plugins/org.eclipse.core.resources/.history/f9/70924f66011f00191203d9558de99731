@@ -1,0 +1,12 @@
+
+public class ServidorSSL {
+
+	public static void main(String[] args) {
+		System.setProperty( "javax.net.ssl.keyStore", "/home/usuario/certificados/AlmacenServidor" );
+		System.setProperty( "javax.net.ssl.keystorePassword" , "123456");
+		
+		
+
+	}
+
+}

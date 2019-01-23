@@ -1,0 +1,11 @@
+package example;
+
+import java.util.ArrayList;
+
+public class Recursos {
+	private ArrayList<Object> list;
+	
+	public Object obtenerRecurso(){
+		
+	}
+}

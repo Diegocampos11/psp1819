@@ -1,0 +1,24 @@
+package example;
+
+public class Consumidor extends Thread {
+	private Recursos recursos;
+	
+	public void consumir ( int n ) {
+		for( int i = 0; i < n; i++ ) {
+			recursos.obtenerRecurso();
+		}
+	}
+
+	public Consumidor(Recursos recursos) {
+		super();
+		this.recursos = recursos;
+	}
+
+	@Override
+	public void run() {
+
+		super.run();
+	}
+	
+	
+}

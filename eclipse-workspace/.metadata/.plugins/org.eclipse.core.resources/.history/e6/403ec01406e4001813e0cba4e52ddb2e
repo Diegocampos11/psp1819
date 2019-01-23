@@ -1,0 +1,9 @@
+
+public class FirstThread {
+
+	public static void main(String[] args) {
+		TThread t = new 
+		System.out.println("hola principal");
+	}
+
+}

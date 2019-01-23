@@ -1,0 +1,13 @@
+
+public class TThread extends Thread{
+	
+	public TThread( int num ) {
+		
+	}
+
+	@Override
+	public void run() {
+		System.out.println("Hilo");
+	}
+	
+}

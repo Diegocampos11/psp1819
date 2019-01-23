@@ -1,0 +1,12 @@
+package example;
+
+import java.util.ArrayList;
+
+public class Recursos {
+	private ArrayList<Object> listaRecursos;
+	
+	public synchronized Object obtenerRecurso() throws InterruptedException{
+		if ( listaRecursos.isEmpty() ) wait();
+		return listaRecursos.get(0);
+	}
+}

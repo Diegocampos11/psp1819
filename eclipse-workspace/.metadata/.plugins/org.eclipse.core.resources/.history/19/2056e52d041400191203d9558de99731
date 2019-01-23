@@ -1,0 +1,9 @@
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ParteB {
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Socket sock = new Socket("localhost", 4567);
+	}
+}

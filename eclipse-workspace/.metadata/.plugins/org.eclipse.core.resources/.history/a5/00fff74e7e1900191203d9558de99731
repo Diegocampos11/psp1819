@@ -1,0 +1,11 @@
+package classes;
+
+public class Servidor {
+	
+	public static final int PUERTO = 4065;
+
+	public static void main(String[] args) {
+		ServerSocket servSock = new ServerSocket( PUERTO );
+	}
+
+}

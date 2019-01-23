@@ -1,0 +1,15 @@
+import javax.net.ssl.SSLServerSocketFactory;
+
+public class ServidorSSL {
+	
+	public static final int PUERTO = 4321;
+
+	public static void main(String[] args) {
+		System.setProperty( "javax.net.ssl.keyStore", "/home/usuario/certificados/AlmacenServidor" );
+		System.setProperty( "javax.net.ssl.keystorePassword" , "123456");
+		
+		SSLServerSocketFactory fabricaServSocket = ( SSLServerSocketFactory ) SSLServerSocketFactory.getDefault(); 
+		SSLServerSocket servSock = fabricaServSocket.createServerSocket( this.PUERTO );
+	}
+
+}

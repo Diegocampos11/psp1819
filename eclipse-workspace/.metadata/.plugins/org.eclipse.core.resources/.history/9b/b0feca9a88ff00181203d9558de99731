@@ -1,0 +1,24 @@
+import java.util.LinkedList;
+
+public class Programa {
+	public static final int MAX = 10;
+	public static final String PRE[] = {"oro", "plata", "bronce", "madera", "hierro", "diamantes"};
+	
+	public static void main(String[] args) {
+		LinkedList<String> palabras = new LinkedList<String>();
+		Productor p = new Productor( palabras );
+		Consumidor c = new Consumidor( palabras );
+		p.start();
+		c.start();
+		//dormir
+		try {
+			Thread.sleep( 10000 );
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p.setFinalizado(true);
+		c.setFinalizado(true);
+	}
+
+}

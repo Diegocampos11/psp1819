@@ -1,0 +1,21 @@
+import java.util.LinkedList;
+
+public class Consumidor extends Thread {
+	private LinkedList<String> palabras;
+	private boolen finalizado;
+
+	public Consumidor(LinkedList<String> palabras) {
+		super();
+		this.palabras = palabras;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		while( !isFinalizado() ) {
+			
+		}
+	}
+	
+	
+}

@@ -1,0 +1,5 @@
+package recordando;
+
+public class Saludo extends Strings{
+	
+}

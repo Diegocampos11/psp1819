@@ -1,0 +1,11 @@
+import java.net.ServerSocket;
+
+public class ConexionLocalServidor {
+
+	public static final int PUERTO = 4321;//por encima del 1024, estan reservados para servicios concretos  
+	
+	public static void main(String[] args) {
+		ServerSocket servSock = new ServerSocket( PUERTO );
+	}
+
+}

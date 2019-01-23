@@ -1,0 +1,15 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ParteA {
+
+	public static void main(String[] args) throws IOException {
+		ServerSocket servSock = new ServerSocket( 4567 );
+		System.out.println("Esperando");
+		Socket sock = servSock.accept();//Esperar una conexcion entrante
+		System.out.println( "mi ip" +  sock.getInetAddress() );
+		System.out.println( "ip externa" + sock.getRemoteSocketAddress() );
+	}
+
+}

@@ -1,0 +1,12 @@
+package recordando;
+
+public class ThreadExtends extends Thread{
+	private String saludo;
+
+	@Override
+	public void run() {
+		System.out.println("Imprime desde thread extends :D nombre:" + this.getName());
+		super.run();
+	}
+	
+}

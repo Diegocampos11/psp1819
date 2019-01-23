@@ -1,0 +1,45 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+public class ServidorHora {
+	public final static int PUERTO = 4321;
+	public final static int HORA = 1;
+	public final static int FECHA = 2;
+	public final static int FECHA_HORA = 3;
+	
+	private static String obtenerHora() { 
+		return ( new SimpleDateFormat( "HH:mm:ss" ).format( Calendar.getInstance().getTime() ) ) ;
+	}
+
+	public static void main(String[] args) {
+		try {
+			ServerSocket servSock = new ServerSocket( PUERTO );
+			while ( true ) {
+				System.out.println("Esperando clietne...");
+				Socket socket = servSock.accept();//aceptamos la conexion, devuelve los nuevos puertos
+				System.out.println("Cliente conectado");
+				DataOutputStream salida = new DataOutputStream( socket.getOutputStream() );
+				//Recibo que servicio quiere.
+				DataInputStream entrada = new DataInputStream( socket.getInputStream() );
+				if(  == entrada.readInt() )
+				
+				salida.writeUTF( obtenerHora() );
+				System.out.println("Hora enviada...");
+				salida.close();
+				socket.close();
+			}
+			//servSock.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
