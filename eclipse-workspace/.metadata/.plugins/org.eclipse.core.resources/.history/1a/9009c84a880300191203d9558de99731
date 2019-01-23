@@ -1,0 +1,25 @@
+import java.io.IOException;
+import java.net.Socket;
+import java.net.SocketAddress;
+
+public class ConexionLocalCliente {
+
+	public static void main(String[] args) {
+		Socket sock = null;
+		try {
+			sock = new Socket( "localhost", ConexionLocalServidor.PUERTO );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			sock.connect( sock.getRemoteSocketAddress() );//se conecta con la conexion remota
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DataInputStream dis = new DataInputStream( sock.getInputStream() );
+		System.out.println(  );
+	}
+
+}

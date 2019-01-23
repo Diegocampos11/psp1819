@@ -1,0 +1,11 @@
+package recordando;
+
+public class ThreadExtends extends Thread{
+
+	@Override
+	public void run() {
+		System.out.println("Imprime desde thread extends :D");
+		super.run();
+	}
+	
+}

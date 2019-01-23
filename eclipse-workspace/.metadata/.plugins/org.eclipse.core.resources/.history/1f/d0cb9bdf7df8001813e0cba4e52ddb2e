@@ -1,0 +1,12 @@
+package recordando;
+import recordando.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		HiloRun HiloRun = new HiloRun();
+		Thread th = new Thread( HiloRun );
+		th.start();
+	}
+
+}

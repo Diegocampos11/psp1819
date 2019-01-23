@@ -1,0 +1,15 @@
+package example;
+
+public class Productor extends Thread {
+	private Recursos recursos;
+
+	public Productor(Recursos recursos) {
+		super();
+		this.recursos = recursos;
+	}
+	
+	public void anadirRecurso() {
+		Object rec = new Object();
+		recursos.anadirRecurso(rec);
+	}
+}

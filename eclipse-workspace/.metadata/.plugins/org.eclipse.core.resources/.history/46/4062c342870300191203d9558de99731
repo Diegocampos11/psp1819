@@ -1,0 +1,12 @@
+import java.net.Socket;
+import java.net.SocketAddress;
+
+public class ConexionLocalCliente {
+
+	public static void main(String[] args) {
+		Socket sock = null;
+		sock.connect( new SocketAddress() {
+		} );
+	}
+
+}

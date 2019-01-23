@@ -1,0 +1,37 @@
+import java.util.LinkedList;
+
+public class Consumidor extends Thread {
+	private LinkedList<String> palabras;
+	private boolean finalizado;
+
+	public boolean isFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+
+	public Consumidor(LinkedList<String> palabras) {
+		super();
+		this.palabras = palabras;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		while( !isFinalizado() ) {
+			try {
+				Thread.sleep( 1000 );//consumimos cada 1000
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			palabras.
+		}
+		synchronized(palabras) {
+			
+		}
+	}
+	
+	
+}

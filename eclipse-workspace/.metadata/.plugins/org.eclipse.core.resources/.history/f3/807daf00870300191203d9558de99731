@@ -1,0 +1,19 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+
+public class ConexionLocalServidor {
+
+	public static final int PUERTO = 4321;//por encima del 1024, estan reservados para servicios concretos  
+	
+	public static void main(String[] args) {
+		ServerSocket servSock = null;
+		try {
+			servSock = new ServerSocket( PUERTO );
+		} catch (IOException e) {//por exclusividad puede estar ocupado
+			e.printStackTrace();
+			System.out.println("No se ha podido abrir el puerto");
+		}
+		Socket sock = servSock.accept();
+	}
+
+}

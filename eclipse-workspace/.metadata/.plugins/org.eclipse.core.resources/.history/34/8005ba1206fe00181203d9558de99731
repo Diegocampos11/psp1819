@@ -1,0 +1,22 @@
+package example;
+
+public class Productor extends Thread {
+	private Recursos recursos;
+
+	public Productor(Recursos recursos) {
+		super();
+		this.recursos = recursos;
+	}
+	
+	public void producir( /*int n */) {
+		//for ( int i = 0; i < n; i++ ) {
+			Object rec = new Object();
+			recursos.anadirRecurso(rec);
+		//}
+	}
+
+	@Override
+	public void run() {
+		this.producir( );
+	}
+}

@@ -1,0 +1,8 @@
+
+public class ClienteHora {
+
+	public static void main(String[] args) {
+		Socket socket = new Socket( "localhost", ServidorHora.PUERTO );
+	}
+
+}

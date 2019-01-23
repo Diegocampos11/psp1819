@@ -1,0 +1,24 @@
+package recordando;
+
+public class Saludo{
+	private String saludo = "DEFAULT";
+
+	public String getSaludo() {
+		return saludo;
+	}
+
+	public void setSaludo(String saludo) {
+		this.saludo = saludo;
+	}
+
+	@Override
+	public String toString() {
+		return "Saludo [saludo=" + saludo + "]";
+	}
+
+	public Saludo(@@String saludo) {
+		super();
+		this.saludo = saludo;
+	}
+	
+}

@@ -1,0 +1,5 @@
+import java.util.LinkedList;
+
+public class Productor extends Thread {
+	private LinkedList<String> palabras;
+}

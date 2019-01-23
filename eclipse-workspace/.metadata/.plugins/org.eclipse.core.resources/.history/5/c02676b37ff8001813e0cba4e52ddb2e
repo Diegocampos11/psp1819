@@ -1,0 +1,12 @@
+package recordando;
+
+public class HiloRun implements Runnable{
+	private String saludo;
+
+	@Override
+	public void run() {
+		System.out.println("Hola mundo desde Hilorun");
+		
+	}
+
+}

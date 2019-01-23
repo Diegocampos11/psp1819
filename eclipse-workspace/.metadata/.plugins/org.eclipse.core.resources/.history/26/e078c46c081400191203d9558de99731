@@ -1,0 +1,17 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ParteB {
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Socket sock = new Socket( "192.168.102.199", 4567);
+		System.out.println("HOla mundo desde cliente, I succeeded in connecting with you");
+		DataInputStream salida = new DataInputStream( sock.getInputStream() );//de A a B
+		salida.readUTF();
+		System.out.println( "Local" +  sock.getLocalSocketAddress() );
+		System.out.println( "Remoto" + sock.getRemoteSocketAddress() );
+		sock.close();
+	}
+}

@@ -1,0 +1,31 @@
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+
+public class ClienteSSL {
+
+	public static void main(String[] args) {
+		System.setProperty( "javax.net.ssl.keyStore", "/home/usuario/certificados/AlmacenCliente" );
+		System.setProperty( "javax.net.ssl.keystorePassword" , "987456");
+		
+		SSLServerSocketFactory fabricaServSocket = ( SSLServerSocketFactory ) SSLServerSocketFactory.getDefault(); 
+		try {
+			SSLServerSocket servSock = (SSLServerSocket) fabricaServSocket.createServerSocket( ServidorSSL.PUERTO );
+			SSLSocket sock = (SSLSocket) servSock.accept();
+			//cliente conectado
+			System.out.println("Cliente conectado");
+			DataOutputStream salida = new DataOutputStream( sock.getOutputStream() );
+			salida.writeUTF("hola Clietne, conectado de manera segura :D");
+			salida.close();
+			sock.close();
+			servSock.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

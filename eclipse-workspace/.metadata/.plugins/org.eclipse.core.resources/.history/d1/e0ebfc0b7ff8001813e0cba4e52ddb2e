@@ -1,0 +1,20 @@
+package recordando;
+import recordando.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		HiloRun HiloRun = new HiloRun();//no se sabe el nombre
+		Thread th = new Thread(/* HiloRun or...*/new Runnable() {//Aqui si se puede saber el nombre			
+			@Override
+			public void run() {
+				System.out.println("hola amigo soy anonimo :D");
+			}
+		});
+		th.start();
+		
+		ThreadExtends te = new ThreadExtends();
+		te.start();
+	}
+
+}

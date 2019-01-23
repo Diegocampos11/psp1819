@@ -1,0 +1,6 @@
+package recordando;
+
+public class Saludo{
+	private String saludo = "PRINCIPAL";
+	
+}

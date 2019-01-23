@@ -1,0 +1,17 @@
+import java.io.IOException;
+import java.net.Socket;
+import java.net.SocketAddress;
+
+public class ConexionLocalCliente {
+
+	public static void main(String[] args) {
+		Socket sock = null;
+		try {
+			sock = new Socket( "localhost", ConexionLocalServidor.PUERTO );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

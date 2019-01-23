@@ -1,0 +1,13 @@
+
+public class FirstThread {
+
+	public static void main(String[] args) {
+		TThread ht = new TThread();
+		ht.start();
+		hiloRunnable hr = new hiloRunnable();
+		Thread hrunnable = new Thread( hr );
+		hrunnable.start();
+		System.out.println("hola principal");
+	}
+
+}

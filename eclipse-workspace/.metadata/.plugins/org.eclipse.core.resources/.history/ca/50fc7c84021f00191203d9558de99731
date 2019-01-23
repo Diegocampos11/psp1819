@@ -1,0 +1,25 @@
+import java.io.IOException;
+
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+
+public class ServidorSSL {
+	
+	public static final int PUERTO = 4321;
+
+	public static void main(String[] args) {
+		System.setProperty( "javax.net.ssl.keyStore", "/home/usuario/certificados/AlmacenServidor" );
+		System.setProperty( "javax.net.ssl.keystorePassword" , "123456");
+		
+		SSLServerSocketFactory fabricaServSocket = ( SSLServerSocketFactory ) SSLServerSocketFactory.getDefault(); 
+		try {
+			SSLServerSocket servSock = (SSLServerSocket) fabricaServSocket.createServerSocket( PUERTO );
+			SSLSocket sock = servSock.accept();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

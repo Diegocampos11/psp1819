@@ -1,0 +1,9 @@
+package example;
+
+public class Consumidor extends Thread {
+	private Recursos recursos;
+	
+	public void consumir ( int n ) {
+		
+	}
+}

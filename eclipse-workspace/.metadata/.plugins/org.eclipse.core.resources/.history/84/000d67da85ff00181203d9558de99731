@@ -1,0 +1,10 @@
+import java.util.LinkedList;
+
+public class Consumidor extends Thread {
+	private LinkedList<String> palabras;
+
+	public Consumidor(LinkedList<String> palabras) {
+		super();
+		this.palabras = palabras;
+	}
+}
