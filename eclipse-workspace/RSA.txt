@@ -1,0 +1,50 @@
+echo "Hola Mundo" > holamundo.txt
+ 1265  openssl
+ 1266  openssl --help
+ 1267  openssl -help
+ 1268  oepnssl --help
+ 1269  oepnssl help
+ 1270  oepnssl -help
+ 1271  openssl md5 holamundo.txt 
+ 1272  openssl dgst md5 holamundo.txt 
+ 1273  openssl dgst -sha256 holamundo.txt 
+ 1274  openssl dgst -sha512 holamundo.txt 
+ 1275  openssl enc -help
+ 1276  openssl enc -ciphers
+ 1277  openssl enc -aes-256-cb -e -in holamundo.txt -o holamunto.txt.enc
+ 1278  openssl enc -aes-256-cbc -e -in holamundo.txt -o holamunto.txt.enc
+ 1279  openssl enc -aes-256-cbc -e -in holamundo.txt -out holamunto.txt.enc
+ 1280  ls
+ 1281  openssl enc -aes-256-cbc -d -in holamundo.txt 
+ 1282  openssl enc -aes-256-cbc -d -in holamundo.txt.enc
+ 1283  openssl enc -aes-256-cbc -d -in holamunto.txt.enc 
+ 1284  cd .ssh/
+ 1285  ls
+ 1286  cat id_rsa
+ 1287  cat id_rsa.pub 
+ 1288  openssl rsa -in ./id_rsa -pubout -out ./id_rsa.pub.pem
+ 1289  ls
+ 1290  cat id_rsa.pub.pem 
+ 1291  cat id_rsa.pub
+ 1292  openssl rsault -encrypt -pubin -inkey id_rsa.pub.pem -in ./../holamunto.txt -out ./../holamunto.txt.enc.rsa
+ 1293  openssl rsautl -encrypt -pubin -inkey id_rsa.pub.pem -in ./../holamunto.txt -out ./../holamunto.txt.enc.rsa
+ 1294  openssl rsautl -encrypt -pubin -inkey id_rsa.pub.pem -in ./../holamundo.txt -out ./../holamunto.txt.enc.rsa
+ 1295  ls -l
+ 1296  cd ..
+ 1297  ls -l
+ 1298  cat holamunto.txt.enc.rsa 
+ 1299  openssl rsautl -decrypt ./.ssh/id_rsa -in holamunto.txt.enc.rsa 
+ 1300  openssl rsautl -decrypt -inkey ./.ssh/id_rsa -in holamunto.txt.enc.rsa
+
+Generar claves desde COMANDO java keytool.jar ALMACENSERVIDOR, lugar donde estaran todas las claves asociadas a si mismo, no
+
+keytool -genkeypair -alias ClaveServidor -keyalg RSA -keystore AlmacenServidor -storepass 123456
+RESULTADO===>CN=Diego Campos, OU=PSP, O=Google, L=San Francisco, ST=California, C=US
+
+Extraer del almacen el certificado del servidor que ocupara el cliente para cifrar los datos. Contiene mi llave publica. clave 123456
+
+keytool -export -alias ClaveServidor -keystore ./AlmacenServidor -file CertificadoServidor.cert (-storepass, asi me lo pide el y no se ve por pantalla)
+
+Generar el ALMACEN DEL CLIENTE, donde el cliente busca las llaves publicas para cifrar sus paquetes. password es 987456
+
+keytool -import -alias CrtServ -file CertificadoServidor.cert -keystore AlmacenCliente -storepass 987456
