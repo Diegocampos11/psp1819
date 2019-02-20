@@ -1,0 +1,148 @@
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <errno.h>
+#include <stdbool.h>
+#include <regex.h>
+
+#define TAM_MAX 50
+//%*[^\n] RECHAZA CUALQUIER CARACTER EXCEPTO EL BARRA N[^\n] HASTA ENCONTRAR UN BARRA N
+//scanf("%c%*[^\n]%*c", &respuesta); //%*c rechaza cualquier caracter
+
+//cadena que guardara el numero ingresado
+char numIngresado[TAM_MAX];//para que la funciones no regresen un double, sean void. Asi mismo trabajo con una sola variable
+
+double numDouble;
+
+char respuesta[TAM_MAX];//para no crearlas cada vez que se ejecuta el while al /***, asi mismo la funcion preguntar solo tendra que devolver true o false y no la respuesta**///
+
+char operacion[TAM_MAX];//almacenara el operador
+
+//metodos
+
+bool getNum();//pide, valida, y convierte el numero a float
+
+bool numValidado();//comprueba si el numero ha sido escrito correctamente
+
+bool preguntar();//fuerza al usuario a ingresar solamente S
+
+bool opValido();//comprueba operador
+
+int main(int argc, char const *argv[])
+{
+    printf("Bienvenido a Cal by Diego Campos.\nRESULTADO = NÚMERO A (OPERACIÓN) NÚMERO B\nPrograma principal\n");
+    while( getNum() );//infinito hasta- validar el numero ingresado
+    while( opValido() );//infinito hasta- valildar operador
+    return 0;
+}
+
+bool getNum(){
+    printf( "Ingresa el número A:\n");
+    //fgets( numIngresado, TAM_MAX, stdin );
+    while( ! numValidado() );//compruebo si el número es valido, de lo contrario fuerzo a que sea valido xd
+    //numDouble = atof( numIngresado );
+    //printf("%lf\n", numero);
+    if ( numDouble == 0 ){
+        bool repetirRespuesta;//comprobar  que la respuesta sea 'S' o '\n'
+        printf("¿Has ingresado 0?\nEscribe 'S' si quieres ingresar otro numero\nEn caso contrario presiona ENTER\n");
+        while( preguntar() );//pido respuesta y aqui se valida que solo sea S o ENTER
+        
+        //paso a elegir en base a la respuesta :D
+        if ( strcmp( respuesta, "S\n") == 0 ){
+            return true;
+        }
+        else if ( strcmp( respuesta, "\n") == 0 ){
+            return false;
+        }
+    }
+    else return false;//el numero no es 0 y es valido!! :D
+}
+
+bool preguntar(){
+    fgets( respuesta, TAM_MAX, stdin );
+    if ( strcmp( respuesta, "S\n") != 0 && strcmp( respuesta, "\n") != 0 ){
+        fprintf(stderr, "Error: debes de escribir solamente 'S' y presionar ENTER si quieres ingresar otro número\nEn caso contrario solamente presiona ENTER para continuar\n");
+        return true;
+    }
+    else return false;
+}
+
+bool numValidado(){
+    regex_t regex;
+    int resRegex;
+    fgets( numIngresado, TAM_MAX, stdin );
+    resRegex = regcomp(&regex, "^(-)?([0-9]+)((,|.)([0-9]+))?\n$", REG_EXTENDED);
+    if (resRegex) {
+        fprintf(stderr, "Error: Could not compile regex\n");
+        exit(1);
+    }
+    
+    /* Execute regular expression */
+    resRegex = regexec(&regex, numIngresado, 0, NULL, 0);
+    if (!resRegex) {
+        char i;//indice de '','' si la encuentra :D
+        if ( ( i = strcspn( numIngresado, "," ) ) != -1 ) numIngresado[i] = '.';//si tiene "," reemplazarlo por ".""
+        numDouble = atof( numIngresado );
+        return true;
+    }
+    else if (resRegex == REG_NOMATCH) {
+        fprintf(stderr, "Error: cifra ingresada inválida. Formato decimal americano o español\nEjemplo: \"99.9999\",\"-99.9999\" ó \"99.9999\",\"-99.9999\"\nIngresa el número A:\n" );
+        return false;
+    }
+    else {
+        regerror(resRegex, &regex, numIngresado, sizeof(numIngresado) );
+        fprintf(stderr, "Regex match failed: %s\n", numIngresado);
+        exit(1);
+    }
+    
+    /* Free memory allocated to the pattern buffer by regcomp() */
+    regfree(&regex);
+}
+
+bool opValido(){
+    
+    
+    /*printf("Ingresa el operador:\n");//('+', '-', '*' ó '/')... se ve mejor solo cuando se produce el error
+    fgets( operacion, TAM_MAX, stdin );
+    if ( operacion[0] == '/' || operacion[0] == '+' || operacion[0] == '-' || operacion[0] == '*' ) return false;
+    else{
+        fprintf(stderr, "Error: operador ingresado inválido\nSolamente se admiten las siguientes operaciones:\n'+', '-', '*' ó '/'\n");
+        return true;
+    }*/
+}
+
+bool regexx( char* varAsignarValor, char regexAevaluar[100] ){
+    regex_t regex;
+    int resRegex;
+    fgets( respuesta, TAM_MAX, stdin );
+    resRegex = regcomp(&regex, regexAevaluar, REG_EXTENDED);
+    if (resRegex) {
+        fprintf(stderr, "Error: Could not compile regex\n");
+        exit(1);
+    }
+    
+    /* Execute regular expression */
+    resRegex = regexec(&regex, numIngresado, 0, NULL, 0);
+    if (!resRegex) {
+        char i;//indice de '','' si la encuentra :D
+        if ( ( i = strcspn( numIngresado, "," ) ) != -1 ) numIngresado[i] = '.';//si tiene "," reemplazarlo por ".""
+        numDouble = atof( numIngresado );
+        return true;
+    }
+    else if (resRegex == REG_NOMATCH) {
+        fprintf(stderr, "Error: cifra ingresada inválida. Formato decimal americano o español\nEjemplo: \"99.9999\",\"-99.9999\" ó \"99.9999\",\"-99.9999\"\nIngresa el número A:\n" );
+        return false;
+    }
+    else {
+        regerror(resRegex, &regex, numIngresado, sizeof(numIngresado) );
+        fprintf(stderr, "Regex match failed: %s\n", numIngresado);
+        return false;
+        //exit(1);
+    }
+    
+    /* Free memory allocated to the pattern buffer by regcomp() */
+    regfree(&regex);
+}
